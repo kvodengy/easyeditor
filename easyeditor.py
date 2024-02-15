@@ -17,6 +17,8 @@ class ImageEditor(QtWidgets.QMainWindow):
         self.ui.btn_flip.clicked.connect(self.do_flip)
         self.ui.btn_blur.clicked.connect(self.do_blur)
         self.ui.btn_crop.clicked.connect(self.do_crop)
+        self.ui.btn_contour.clicked.connect(self.do_contour)
+        self.ui.btn_emboss.clicked.connect(self.do_cemboss)
         self.ui.btn_dir.clicked.connect(self.showfiles)
         self.ui.listWidget.itemClicked.connect(self.showimage)
 
@@ -106,6 +108,16 @@ class ImageEditor(QtWidgets.QMainWindow):
     def do_crop(self):
         box = (100, 100, 400, 450)
         self.image = self.image.crop(box)
+        self.saveimage()
+        self.show_changed()
+
+    def do_contour(self):
+        self.image = self.image.filter(ImageFilter.CONTOUR)
+        self.saveimage()
+        self.show_changed()
+
+    def do_cemboss(self):
+        self.image = self.image.filter(ImageFilter.EMBOSS)
         self.saveimage()
         self.show_changed()
 
